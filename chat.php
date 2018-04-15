@@ -25,9 +25,14 @@ $botman->hears('Good Morning', function (BotMan $bot) {
     $bot->reply('Hey John');
 });
 
-$botman->hears('What is the time in {uyo}' , function (BotMan $bot,$loc) {
-    
-    $bot->reply('The time in is '. $loc);
+$botman->hears('what is the time in {city} located in {continent}' , function (BotMan $bot,$city,$continent) {
+     date_default_timezone_set("$continent/$city");
+      $reply = "The time in ".$city." ".$continent." is ".date("h:i:sa");
+    $bot->reply($reply);
+});
+
+$botman->fallback(function($bot) {
+    $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
 });
 
 // Start listening
